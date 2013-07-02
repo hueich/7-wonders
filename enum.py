@@ -18,5 +18,8 @@ class Resource(object):
 class Science(object):
   WHEEL, COMPASS, TABLET = range(3)
 
-class Direction(object):
+class Relation(object):
   SELF, LEFT, RIGHT = range(3)
+
+class Direction(object):
+  CLOCKWISE, COUNTERCLOCKWISE = range(2)

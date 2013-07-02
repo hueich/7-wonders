@@ -9,6 +9,9 @@ class Card(object):
     self.parents = parents or []
     self.children = children or []
 
+  def __eq__(self, other):
+    return self.__dict__ == other.__dict__
+
 class ResourceCard(Card):
   """Brown or gray resource for raw materials or manufactured goods card."""
   def __init__(self, name, age, resources, cost=None, parents=None, children=None):
