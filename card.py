@@ -2,10 +2,10 @@
 import enum
 
 class Card(object):
-  def __init__(self, name, age, benefit, cost=None, parents=None, children=None):
+  def __init__(self, name, age, bonus, cost=None, parents=None, children=None):
     self.name = name
     self.age = age
-    self.benefit = benefit
+    self.bonus = bonus
     self.cost = cost or []
     self.parents = parents or []
     self.children = children or []

@@ -3,7 +3,7 @@ import constants
 import exception
 
 class Player(object):
-  def __init__(self, name, wonder, left=None, right=None, coins=constants.STARTING_COINS):
+  def __init__(self, name, wonder, left=None, right=None, coins=constants.PLAYER_STARTING_COINS):
     """
     Args:
       name: String for the name of the player.
@@ -45,7 +45,7 @@ class Player(object):
       self.payForCard(card)
       self.hand.remove(card)
       self.cards.append(card)
-      self.applyBenefits(card)
+      self.applyBonuss(card)
     else:
       raise exception.IllegalMoveException(self, card, 'Cannot build card.')
 
@@ -53,14 +53,14 @@ class Player(object):
     """Pay the cost of the card."""
     pass
 
-  def applyBenefits(self, card):
-    """Apply the benefits on the card."""
+  def applyBonuss(self, card):
+    """Apply the bonuss on the card."""
     pass
 
   def exchangeCard(self, card):
     """Exchange card for coins."""
     self.hand.remove(card)
-    self.coins += constants.EXCHANGE_RATE
+    self.coins += constants.CARD_EXCHANGE_RATE
 
   def canBuildWonderStage(self):
     """Check whether the player can build the next wonder stage."""
@@ -90,3 +90,9 @@ class Player(object):
     """Calculate total points the player has."""
     # TODO
     return 0
+
+class TurnSummary(object):
+  def __init__(self, action, card, coin_delta=0):
+    self.action = action
+    self.card = card
+    self.coin_delta = coin_delta

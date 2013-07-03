@@ -1,25 +1,37 @@
 
 class Age(object):
-  I, II, III = range(3)
+  I = 'I'
+  II = 'II'
+  III = 'III'
 
 class Resource(object):
   # Basic Resources
-  WOOD = 0
-  STONE = 1
-  ORE = 2
-  CLAY = 3
+  WOOD = 'WOOD'
+  STONE = 'STONE'
+  ORE = 'ORE'
+  CLAY = 'CLAY'
   # Advanced Resources
-  PAPYRUS = 4
-  TEXTILE = 5
-  GLASS = 6
+  PAPYRUS = 'PAPYRUS'
+  TEXTILE = 'TEXTILE'
+  GLASS = 'GLASS'
   # Other
-  COIN = 7
+  COIN = 'COIN'
 
 class Science(object):
-  WHEEL, COMPASS, TABLET = range(3)
+  WHEEL = 'WHEEL'
+  COMPASS = 'COMPASS'
+  TABLET = 'TABLET'
 
 class Relation(object):
-  SELF, LEFT, RIGHT = range(3)
+  SELF = 'SELF'
+  LEFT = 'LEFT'
+  RIGHT = 'RIGHT'
 
 class Direction(object):
-  CLOCKWISE, COUNTERCLOCKWISE = range(2)
+  CLOCKWISE = 'CLOCKWISE'
+  COUNTERCLOCKWISE = 'COUNTERCLOCKWISE'
+
+class Action(object):
+  BUILD = 'BUILD'
+  WONDER = 'WONDER'
+  EXCHANGE = 'EXCHANGE'
