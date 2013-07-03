@@ -17,7 +17,8 @@ class Player(object):
     self.right = right
     self.wonder = wonder
     self.coins = coins
-    self.military_points = 0
+    self.wins = 0
+    self.losses = 0
     self.wonder_stage = 0
     self.cards = []
     self.hand = []
@@ -44,11 +45,16 @@ class Player(object):
       self.payForCard(card)
       self.hand.remove(card)
       self.cards.append(card)
+      self.applyBenefits(card)
     else:
-      raise exception.IllegalMoveException(self, card)
+      raise exception.IllegalMoveException(self, card, 'Cannot build card.')
 
   def payForCard(self, card):
-    """Pays the cost of the card."""
+    """Pay the cost of the card."""
+    pass
+
+  def applyBenefits(self, card):
+    """Apply the benefits on the card."""
     pass
 
   def exchangeCard(self, card):
@@ -58,6 +64,9 @@ class Player(object):
 
   def canBuildWonderStage(self):
     """Check whether the player can build the next wonder stage."""
+    if len(self.wonder.stages) == self.wonder_stage:
+      return False
+
     # TODO
     return True
 
@@ -66,6 +75,8 @@ class Player(object):
     if self.canBuildWonderStage():
       self.hand.remove(card)
       self.wonder_stage += 1
+    else:
+      raise exception.IllegalMoveException(self, card, 'Cannot build wonder stage.')
 
   def getActiveWonderStages(self):
     return self.wonder.stages[:self.wonder_stage]
