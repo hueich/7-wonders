@@ -1,37 +1,47 @@
 
-class Age(object):
-  I = 'I'
-  II = 'II'
-  III = 'III'
+def enum(*keys):
+    enums = dict(zip(keys, keys), values=keys)
+    return type('Enum', (object,), enums)
 
-class Resource(object):
+Age = enum(
+  'I',
+  'II',
+  'III',
+)
+
+Resource = enum(
   # Basic Resources
-  WOOD = 'WOOD'
-  STONE = 'STONE'
-  ORE = 'ORE'
-  CLAY = 'CLAY'
+  'WOOD',
+  'STONE',
+  'ORE',
+  'CLAY',
   # Advanced Resources
-  PAPYRUS = 'PAPYRUS'
-  TEXTILE = 'TEXTILE'
-  GLASS = 'GLASS'
+  'PAPYRUS',
+  'TEXTILE',
+  'GLASS',
   # Other
-  COIN = 'COIN'
+  'COIN',
+)
 
-class Science(object):
-  WHEEL = 'WHEEL'
-  COMPASS = 'COMPASS'
-  TABLET = 'TABLET'
+Science = enum(
+  'WHEEL',
+  'COMPASS',
+  'TABLET',
+)
 
-class Relation(object):
-  SELF = 'SELF'
-  LEFT = 'LEFT'
-  RIGHT = 'RIGHT'
+Relation = enum(
+  'SELF',
+  'LEFT',
+  'RIGHT',
+)
 
-class Direction(object):
-  CLOCKWISE = 'CLOCKWISE'
-  COUNTERCLOCKWISE = 'COUNTERCLOCKWISE'
+Direction = enum(
+  'CLOCKWISE',
+  'COUNTERCLOCKWISE',
+)
 
-class Action(object):
-  BUILD = 'BUILD'
-  WONDER = 'WONDER'
-  EXCHANGE = 'EXCHANGE'
+Action = enum(
+  'BUILD',
+  'WONDER',
+  'EXCHANGE',
+)
