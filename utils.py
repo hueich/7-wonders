@@ -18,3 +18,18 @@ def countAssets(player, relations, asset_filter):
       raise exception.GameException('Unrecognized relation: %s' % rel)
     count += len(asset_filter(cur_player))
   return count
+
+def updatePlayerRelations(players):
+  """Update players' relative positions to each other."""
+  prev_player = None
+  for player in players:
+    if prev_player is None:
+      prev_player = player
+    else:
+      player.right = prev_player
+      prev_player.left = player
+      prev_player = player
+  # Connect first and last player
+  players[0].right = players[-1]
+  players[-1].left = players[0]
+

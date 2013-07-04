@@ -3,7 +3,7 @@ import constants
 import exception
 
 class Player(object):
-  def __init__(self, name, wonder, left=None, right=None, coins=constants.PLAYER_STARTING_COINS):
+  def __init__(self, name, wonder=None, left=None, right=None, coins=constants.PLAYER_STARTING_COINS):
     """
     Args:
       name: String for the name of the player.
@@ -45,7 +45,7 @@ class Player(object):
       self.payForCard(card)
       self.hand.remove(card)
       self.cards.append(card)
-      self.applyBonuss(card)
+      self.applyBonus(card)
     else:
       raise exception.IllegalMoveException(self, card, 'Cannot build card.')
 
@@ -53,8 +53,8 @@ class Player(object):
     """Pay the cost of the card."""
     pass
 
-  def applyBonuss(self, card):
-    """Apply the bonuss on the card."""
+  def applyBonus(self, card):
+    """Apply the bonus on the card."""
     pass
 
   def exchangeCard(self, card):

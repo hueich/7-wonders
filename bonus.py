@@ -46,7 +46,7 @@ class TradingBonus(BaseBonus):
     self.cost = cost
 
 class CountedBonus(BaseBonus):
-  """Abstract class for bonuss that need to count something, e.g. cards, wonder stages, etc."""
+  """Abstract class for bonuses that need to count something, e.g. cards, wonder stages, etc."""
   def __init__(self, relations):
     self.relations = relations
 
