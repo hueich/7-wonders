@@ -45,3 +45,24 @@ Action = enum(
   'WONDER',
   'EXCHANGE',
 )
+
+CardType = enum(
+  'BASIC_RES',
+  'ADV_RES',
+  'SCIENCE',
+  'MILITARY',
+  'CIVIL',
+  'COMMERCE',
+  'GUILD',
+)
+
+BonusType = enum(
+  'POINT',
+  'RESOURCE',
+  'SCIENCE',
+  'MILITARY',
+  'TRADING',
+  'CARD',
+  'WONDER',
+  'DEFEAT',
+)
