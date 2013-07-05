@@ -45,7 +45,7 @@ class TradingBonus(BaseBonus):
     self.relations = relations
     self.cost = cost
 
-class BaseCountedBonus(BaseBonus):
+class BaseCountBonus(BaseBonus):
   """Abstract class for bonuses that need to count something, e.g. cards, wonder stages, etc."""
   def __init__(self, relations):
     self.relations = relations
@@ -56,9 +56,9 @@ class BaseCountedBonus(BaseBonus):
   def assetFilter(self, player):
     raise NotImplementedError()
 
-class CardBonus(BaseCountedBonus):
+class CardCountBonus(BaseCountBonus):
   def __init__(self, relations, card_type, points_per_card=0, coins_per_card=0):
-    super(CardBonus, self).__init__(relations)
+    super(CardCountBonus, self).__init__(relations)
     self.card_type = card_type
     self.points_per_card = points_per_card
     self.coins_per_card = coins_per_card
@@ -66,16 +66,16 @@ class CardBonus(BaseCountedBonus):
   def assetFilter(self, player):
     return utils.getCardsOfType(player.cards, self.card_type)
 
-class WonderBonus(BaseCountedBonus):
+class WonderCountBonus(BaseCountBonus):
   def __init__(self, relations, points_per_stage, coins_per_stage=0):
-    super(WonderBonus, self).__init__(relations)
+    super(WonderCountBonus, self).__init__(relations)
     self.points_per_stage = points_per_stage
     self.coins_per_stage = coins_per_stage
 
   def assetFilter(self, player):
     return player.getActiveWonderStages()
 
-class DefeatBonus(BaseCountedBonus):
+class DefeatCountBonus(BaseCountBonus):
   def __init__(self, relations, points_per_defeat):
-    super(DefeatBonus, self).__init__(relations)
+    super(DefeatCountBonus, self).__init__(relations)
     self.points_per_defeat = points_per_defeat

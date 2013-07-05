@@ -62,7 +62,7 @@ BonusType = enum(
   'SCIENCE',
   'MILITARY',
   'TRADING',
-  'CARD',
-  'WONDER',
-  'DEFEAT',
+  'CARD_COUNT',
+  'WONDER_COUNT',
+  'DEFEAT_COUNT',
 )
