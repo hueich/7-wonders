@@ -8,3 +8,7 @@ class IllegalMoveException(GameException):
     self.player = player
     self.card = card
     self.msg = msg
+
+class ParseError(GameException):
+  def __init__(self, field, msg=''):
+    self.field = field

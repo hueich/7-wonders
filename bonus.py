@@ -8,6 +8,9 @@ class BaseBonus(object):
   def getPoints(self, player):
     return 0
 
+  def __eq__(self, other):
+    return self.__dict__ == other.__dict__
+
 class PointBonus(BaseBonus):
   def __init__(self, points):
     self.points = points

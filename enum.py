@@ -47,13 +47,13 @@ Action = enum(
 )
 
 CardType = enum(
-  'BASIC_RES',
-  'ADV_RES',
-  'SCIENCE',
-  'MILITARY',
-  'CIVIL',
-  'COMMERCE',
-  'GUILD',
+  'BASIC_RES',  # Brown
+  'ADV_RES',    # Gray
+  'SCIENCE',    # Green
+  'MILITARY',   # Red
+  'CIVIL',      # Blue
+  'COMMERCE',   # Yellow
+  'GUILD',      # Purple
 )
 
 BonusType = enum(
