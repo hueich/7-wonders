@@ -14,8 +14,11 @@ class Card(object):
   def __eq__(self, other):
     return self.__dict__ == other.__dict__
 
+  def __str__(self):
+    return self.__class__.__name__ + ': ' + str(self.__dict__)
+
   def __repr__(self):
-    return str(type(self)) + ': ' + str(self.__dict__)
+    return '<' + str(self) + '>'
 
 class BasicResourceCard(Card):
   """Brown resource card for raw materials."""

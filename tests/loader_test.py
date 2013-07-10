@@ -18,4 +18,9 @@ class ParseCardTest(unittest.TestCase):
     self.assertEqual(card.BasicResourceCard('Boo', enum.Age.I, 3, bonus.ResourceBonus([enum.Resource.WOOD])), cards[0])
 
   def testMultipleMinPlayers(self):
-    pass
+    json = {"type":"BASIC_RES", "name":"Boo", "age":"I", "min_players":[3, 5], "cost":[], "bonus":{"type":"RESOURCE", "resources":["WOOD"]}}
+    cards = []
+    loader._parseCard(json, cards)
+    self.assertEqual(2, len(cards))
+    self.assertEqual(card.BasicResourceCard('Boo', enum.Age.I, 3, bonus.ResourceBonus([enum.Resource.WOOD])), cards[0])
+    self.assertEqual(card.BasicResourceCard('Boo', enum.Age.I, 5, bonus.ResourceBonus([enum.Resource.WOOD])), cards[1])
