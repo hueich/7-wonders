@@ -7,7 +7,7 @@ class Card(object):
     self.age = age
     self.min_players = min_players
     self.bonus = bonus
-    self.cost = cost or []
+    self.cost = cost or {}
     self.parents = parents or []
     self.children = children or []
 

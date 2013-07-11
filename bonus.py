@@ -19,7 +19,7 @@ class BaseBonus(object):
 
 class PointBonus(BaseBonus):
   def __init__(self, points):
-    self.points = points
+    self.points = int(points)
 
 class ResourceBonus(BaseBonus):
   def __init__(self, resources):
@@ -40,7 +40,7 @@ class ScienceBonus(BaseBonus):
 
 class MilitaryBonus(BaseBonus):
   def __init__(self, shields):
-    self.shields = shields
+    self.shields = int(shields)
 
 class TradingBonus(BaseBonus):
   def __init__(self, resources, relations, cost=constants.COMMERCE_TRADING_RATE):

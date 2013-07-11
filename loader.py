@@ -38,8 +38,9 @@ def _parseCard(card_info, cards_list):
 
     bonus = _parseBonus(card_info['bonus'])
 
+    cost = _parseCost(card_info['cost'])
+
     # TODO
-    cost = None
     parents = None
     children = None
 
@@ -79,13 +80,24 @@ def _parseBonus(bonus_info):
   elif bonus_type == enum.BonusType.SCIENCE:
     science = bonus_info['science'] if bonus_info['science'] in enum.Science.values else None
     if not science:
-      raise exception.ParseError('bonus.science', msg='Invalid value.')
+      raise exception.ParseError('bonus.science')
     bonus = bonus_lib.ScienceBonus(science)
+  elif bonus_type == enum.BonusType.MILITARY:
+    shields = int(bonus_info['shields'])
+    bonus = bonus_lib.MilitaryBonus(shields)
   # TODO
   else:
     raise exception.ParseError('bonus.type')
   return bonus
 
+def _parseCost(cost_info):
+  cost = {}
+  for res in cost_info:
+    if res in enum.Resource.values:
+      cost[res] = int(cost_info[res])
+    else:
+      raise exception.ParseError('cost')
+  return cost
 
 def _parseWonders(wonders):
   output = []
