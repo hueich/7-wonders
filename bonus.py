@@ -43,7 +43,7 @@ class MilitaryBonus(BaseBonus):
     self.shields = int(shields)
 
 class TradingBonus(BaseBonus):
-  def __init__(self, resources, relations, cost=constants.COMMERCE_TRADING_RATE):
+  def __init__(self, resources, relations, cost=None):
     """
     Args:
       resources: A list of tradable resources.
@@ -52,7 +52,7 @@ class TradingBonus(BaseBonus):
     """
     self.resources = resources
     self.relations = relations
-    self.cost = cost
+    self.cost = int(cost) if cost is not None else constants.COMMERCE_TRADING_RATE
 
 class BaseCountBonus(BaseBonus):
   """Abstract class for bonuses that need to count something, e.g. cards, wonder stages, etc."""
@@ -66,20 +66,20 @@ class BaseCountBonus(BaseBonus):
     raise NotImplementedError()
 
 class CardCountBonus(BaseCountBonus):
-  def __init__(self, relations, card_type, points_per_card=0, coins_per_card=0):
+  def __init__(self, relations, card_type, points_per_card=None, coins_per_card=None):
     super(CardCountBonus, self).__init__(relations)
     self.card_type = card_type
-    self.points_per_card = points_per_card
-    self.coins_per_card = coins_per_card
+    self.points_per_card = int(points_per_card) if points_per_card is not None else 0
+    self.coins_per_card = int(coins_per_card) if coins_per_card is not None else 0
 
   def assetFilter(self, player):
     return utils.getCardsOfType(player.cards, self.card_type)
 
 class WonderCountBonus(BaseCountBonus):
-  def __init__(self, relations, points_per_stage, coins_per_stage=0):
+  def __init__(self, relations, points_per_stage, coins_per_stage=None):
     super(WonderCountBonus, self).__init__(relations)
     self.points_per_stage = points_per_stage
-    self.coins_per_stage = coins_per_stage
+    self.coins_per_stage = int(coins_per_stage) if coins_per_stage is not None else 0
 
   def assetFilter(self, player):
     return player.getActiveWonderStages()

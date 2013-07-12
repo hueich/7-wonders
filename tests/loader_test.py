@@ -67,3 +67,25 @@ class ParseCardTest(unittest.TestCase):
     self.assertEqual(card.BasicResourceCard('Boo', enum.Age.I, 3, bonus.ResourceBonus([enum.Resource.WOOD])), cards[0])
     self.assertEqual(card.BasicResourceCard('Boo', enum.Age.I, 5, bonus.ResourceBonus([enum.Resource.WOOD])), cards[1])
 
+class ParseBonusTest(unittest.TestCase):
+  def testCountCardsSimple(self):
+    json = {"type":"CARD_COUNT", "relations":["RIGHT", "LEFT"], "card_type":"BASIC_RES"}
+    actual = loader._parseBonus(json)
+    self.assertEqual(bonus.CardCountBonus(relations=[enum.Relation.RIGHT, enum.Relation.LEFT], card_type=card.BasicResourceCard), actual)
+
+  def testCountCardsAllParams(self):
+    json = {"type":"CARD_COUNT", "relations":["SELF"], "card_type":"GUILD", "points_per_card":2, "coins_per_card":3}
+    actual = loader._parseBonus(json)
+    self.assertEqual(bonus.CardCountBonus(relations=[enum.Relation.SELF], card_type=card.GuildCard, points_per_card=2, coins_per_card=3), actual)
+
+  def testCountWonderAllParams(self):
+    json = {"type":"WONDER_COUNT", "relations":["SELF"], "points_per_stage":1, "coins_per_stage":2}
+    actual = loader._parseBonus(json)
+    self.assertEqual(bonus.WonderCountBonus(relations=[enum.Relation.SELF], points_per_stage=1, coins_per_stage=2), actual)
+
+  def testCountDefeat(self):
+    json = {"type":"DEFEAT_COUNT", "relations":["LEFT", "SELF", "RIGHT"], "points_per_defeat":4}
+    actual = loader._parseBonus(json)
+    self.assertEqual(bonus.DefeatCountBonus(relations=[enum.Relation.LEFT, enum.Relation.SELF, enum.Relation.RIGHT], points_per_defeat=4), actual)
+
+

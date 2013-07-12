@@ -71,8 +71,6 @@ def _parseBonus(bonus_info):
     points = int(bonus_info['points'])
     bonus = bonus_lib.PointBonus(points)
   elif bonus_type == enum.BonusType.RESOURCE:
-    if not isinstance(bonus_info['resources'], list):
-      raise exception.ParseError('bonus.resources', msg='Field must be a list.')
     resources = _parseResources(bonus_info['resources'])
     bonus = bonus_lib.ResourceBonus(resources)
   elif bonus_type == enum.BonusType.SCIENCE:
@@ -81,7 +79,26 @@ def _parseBonus(bonus_info):
   elif bonus_type == enum.BonusType.MILITARY:
     shields = int(bonus_info['shields'])
     bonus = bonus_lib.MilitaryBonus(shields)
-  # TODO
+  elif bonus_type == enum.BonusType.TRADING:
+    resources = _parseResources(bonus_info['resources'])
+    relations = _parseRelations(bonus_info['relations'])
+    cost = int(bonus_info['cost']) if 'cost' in bonus_info else None
+    bonus = bonus_lib.TradingBonus(resources=resources, relations=relations, cost=cost)
+  elif bonus_type == enum.BonusType.CARD_COUNT:
+    relations = _parseRelations(bonus_info['relations'])
+    card_type = _getCardClassFromString(bonus_info['card_type'])
+    points_per_card = int(bonus_info['points_per_card']) if 'points_per_card' in bonus_info else None
+    coins_per_card = int(bonus_info['coins_per_card']) if 'coins_per_card' in bonus_info else None
+    bonus = bonus_lib.CardCountBonus(relations=relations, card_type=card_type, points_per_card=points_per_card, coins_per_card=coins_per_card)
+  elif bonus_type == enum.BonusType.WONDER_COUNT:
+    relations = _parseRelations(bonus_info['relations'])
+    points_per_stage = int(bonus_info['points_per_stage']) if 'points_per_stage' in bonus_info else None
+    coins_per_stage = int(bonus_info['coins_per_stage']) if 'coins_per_stage' in bonus_info else None
+    bonus = bonus_lib.WonderCountBonus(relations=relations, points_per_stage=points_per_stage, coins_per_stage=coins_per_stage)
+  elif bonus_type == enum.BonusType.DEFEAT_COUNT:
+    relations = _parseRelations(bonus_info['relations'])
+    points_per_defeat = int(bonus_info['points_per_defeat']) if 'points_per_defeat' in bonus_info else None
+    bonus = bonus_lib.DefeatCountBonus(relations=relations, points_per_defeat=points_per_defeat)
   else:
     raise exception.ParseError('bonus.type')
   return bonus
@@ -102,7 +119,12 @@ def _parseCost(cost_info):
   return cost
 
 def _parseResources(resources):
+  if not isinstance(resources, list):
+    raise exception.ParseError('resources', msg='Field must be a list.')
   return [tuple(res) if isinstance(res, list) else res for res in resources]
+
+def _parseRelations(relations):
+  return [_parseEnum(rel, enum.Relation, 'relations') for rel in relations]
 
 def _parseWonders(wonders):
   output = []
