@@ -29,9 +29,7 @@ def _parseCard(card_info, cards_list):
     if not name:
       raise exception.ParseError('card.type')
 
-    age = card_info['age'] if card_info['age'] in enum.Age.values else None
-    if not age:
-      raise exception.ParseError('card.age')
+    age = _parseEnum(card_info['age'], enum.Age, 'card.age')
 
     bonus = _parseBonus(card_info['bonus'])
 
@@ -67,7 +65,7 @@ def _getCardClassFromString(card_type):
   return card_class
 
 def _parseBonus(bonus_info):
-  bonus_type = bonus_info['type'] if bonus_info['type'] in enum.BonusType.values else None
+  bonus_type = _parseEnum(bonus_info['type'], enum.BonusType, 'bonus.type')
   bonus = None
   if bonus_type == enum.BonusType.POINT:
     points = int(bonus_info['points'])
@@ -78,9 +76,7 @@ def _parseBonus(bonus_info):
     resources = _parseResources(bonus_info['resources'])
     bonus = bonus_lib.ResourceBonus(resources)
   elif bonus_type == enum.BonusType.SCIENCE:
-    science = bonus_info['science'] if bonus_info['science'] in enum.Science.values else None
-    if not science:
-      raise exception.ParseError('bonus.science')
+    science = _parseEnum(bonus_info['science'], enum.Science, 'bonus.science')
     bonus = bonus_lib.ScienceBonus(science)
   elif bonus_type == enum.BonusType.MILITARY:
     shields = int(bonus_info['shields'])
@@ -111,5 +107,6 @@ def _parseResources(resources):
 def _parseWonders(wonders):
   output = []
   for wonder_info in wonders:
+    # TODO
     pass
   return output
