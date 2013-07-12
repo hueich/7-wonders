@@ -18,15 +18,12 @@ def loadAssets(fp):
 def _parseCards(cards):
   output = []
   for card_info in cards:
-    pass
+    _parseCard(card_info, output)
   return output
 
 def _parseCard(card_info, cards_list):
-  # TODO
   for min_players in [int(c) for c in card_info['min_players']]:
-    card_type = card_info['type'] if card_info['type'] in enum.CardType.values else None
-    if not card_type:
-      raise exception.ParseError('card.type')
+    card_type = _parseEnum(card_info['type'], enum.CardType, 'card.type')
 
     name = str(card_info['name'])
     if not name:
@@ -44,27 +41,30 @@ def _parseCard(card_info, cards_list):
     parents = None
     children = None
 
-    card_class = None
-    if card_type == enum.CardType.BASIC_RES:
-      card_class = card_lib.BasicResourceCard
-    elif card_type == enum.CardType.ADV_RES:
-      card_class = card_lib.AdvResourceCard
-    elif card_type == enum.CardType.SCIENCE:
-      card_class = card_lib.ScienceCard
-    elif card_type == enum.CardType.MILITARY:
-      card_class = card_lib.MilitaryCard
-    elif card_type == enum.CardType.CIVIL:
-      card_class = card_lib.CivilCard
-    elif card_type == enum.CardType.COMMERCE:
-      card_class = card_lib.CommerceCard
-    elif card_type == enum.CardType.GUILD:
-      card_class = card_lib.GuildCard
-    else:
-      raise exception.ParseError('card.type')
+    card_class = _getCardClassFromString(card_type)
 
     card = card_class(name, age, min_players, bonus, cost, parents, children)
     cards_list.append(card)
 
+def _getCardClassFromString(card_type):
+  card_class = None
+  if card_type == enum.CardType.BASIC_RES:
+    card_class = card_lib.BasicResourceCard
+  elif card_type == enum.CardType.ADV_RES:
+    card_class = card_lib.AdvResourceCard
+  elif card_type == enum.CardType.SCIENCE:
+    card_class = card_lib.ScienceCard
+  elif card_type == enum.CardType.MILITARY:
+    card_class = card_lib.MilitaryCard
+  elif card_type == enum.CardType.CIVIL:
+    card_class = card_lib.CivilCard
+  elif card_type == enum.CardType.COMMERCE:
+    card_class = card_lib.CommerceCard
+  elif card_type == enum.CardType.GUILD:
+    card_class = card_lib.GuildCard
+  else:
+    raise exception.ParseError('card.type')
+  return card_class
 
 def _parseBonus(bonus_info):
   bonus_type = bonus_info['type'] if bonus_info['type'] in enum.BonusType.values else None
@@ -75,7 +75,7 @@ def _parseBonus(bonus_info):
   elif bonus_type == enum.BonusType.RESOURCE:
     if not isinstance(bonus_info['resources'], list):
       raise exception.ParseError('bonus.resources', msg='Field must be a list.')
-    resources = [tuple(res) if isinstance(res, list) else res for res in bonus_info['resources']]
+    resources = _parseResources(bonus_info['resources'])
     bonus = bonus_lib.ResourceBonus(resources)
   elif bonus_type == enum.BonusType.SCIENCE:
     science = bonus_info['science'] if bonus_info['science'] in enum.Science.values else None
@@ -90,6 +90,12 @@ def _parseBonus(bonus_info):
     raise exception.ParseError('bonus.type')
   return bonus
 
+def _parseEnum(value, enum_type, field):
+  if value in enum_type.values:
+    return value
+  else:
+    raise exception.ParseError(field)
+
 def _parseCost(cost_info):
   cost = {}
   for res in cost_info:
@@ -98,6 +104,9 @@ def _parseCost(cost_info):
     else:
       raise exception.ParseError('cost')
   return cost
+
+def _parseResources(resources):
+  return [tuple(res) if isinstance(res, list) else res for res in resources]
 
 def _parseWonders(wonders):
   output = []

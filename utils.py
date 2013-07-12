@@ -1,3 +1,4 @@
+
 import enum
 import exception
 
@@ -32,4 +33,5 @@ def updatePlayerRelations(players):
   # Connect first and last player
   players[0].right = players[-1]
   players[-1].left = players[0]
+
 
