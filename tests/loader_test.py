@@ -67,6 +67,35 @@ class ParseCardTest(unittest.TestCase):
     self.assertEqual(card.BasicResourceCard('Boo', enum.Age.I, 3, bonus.ResourceBonus([enum.Resource.WOOD])), cards[0])
     self.assertEqual(card.BasicResourceCard('Boo', enum.Age.I, 5, bonus.ResourceBonus([enum.Resource.WOOD])), cards[1])
 
+  def testSingleParent(self):
+    json = {"type":"CIVIL", "name":"Boo", "age":"I", "min_players":[3], "cost":{}, "bonus":{"type":"POINT", "points":2}, "parents":["abc"]}
+    cards = []
+    loader._parseCard(json, cards)
+    self.assertEqual(1, len(cards))
+    self.assertEqual(card.CivilCard('Boo', enum.Age.I, 3, bonus.PointBonus(2), parents=['abc']), cards[0])
+
+  def testMultipleParents(self):
+    json = {"type":"CIVIL", "name":"Boo", "age":"I", "min_players":[3], "cost":{}, "bonus":{"type":"POINT", "points":2}, "parents":["abc", "def"]}
+    cards = []
+    loader._parseCard(json, cards)
+    self.assertEqual(1, len(cards))
+    self.assertEqual(card.CivilCard('Boo', enum.Age.I, 3, bonus.PointBonus(2), parents=['abc', 'def']), cards[0])
+
+  def testMultipleChildren(self):
+    json = {"type":"CIVIL", "name":"Boo", "age":"I", "min_players":[3], "cost":{}, "bonus":{"type":"POINT", "points":2}, "children":["abc", "def"]}
+    cards = []
+    loader._parseCard(json, cards)
+    self.assertEqual(1, len(cards))
+    self.assertEqual(card.CivilCard('Boo', enum.Age.I, 3, bonus.PointBonus(2), children=['abc', 'def']), cards[0])
+
+  def testMultipleParentsAndChildren(self):
+    json = {"type":"CIVIL", "name":"Boo", "age":"I", "min_players":[3], "cost":{}, "bonus":{"type":"POINT", "points":2}, "parents":["abc", "def"], "children":["123", "456"]}
+    cards = []
+    loader._parseCard(json, cards)
+    self.assertEqual(1, len(cards))
+    self.assertEqual(card.CivilCard('Boo', enum.Age.I, 3, bonus.PointBonus(2), parents=['abc', 'def'], children=['123', '456']), cards[0])
+
+
 class ParseBonusTest(unittest.TestCase):
   def testCountCardsSimple(self):
     json = {"type":"CARD_COUNT", "relations":["RIGHT", "LEFT"], "card_type":"BASIC_RES"}

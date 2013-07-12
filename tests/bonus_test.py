@@ -10,7 +10,7 @@ import wonder as wonder_lib
 class BonusTest(unittest.TestCase):
   def testCardCountBonusCounting(self):
     player = player_lib.Player(name='A', wonder=None)
-    player.cards = [card.MilitaryCard(None, None, None, None), card.ScienceCard(None, None, None, None)]
+    player.cards = [card.MilitaryCard(None, None, 0, None), card.ScienceCard(None, None, 0, None)]
     bonus = bonus_lib.CardCountBonus([enum.Relation.SELF], card.ScienceCard, coins_per_card=3)
     self.assertEqual(1, bonus.getCount(player))
 

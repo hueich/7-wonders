@@ -5,11 +5,11 @@ class Card(object):
   def __init__(self, name, age, min_players, bonus, cost=None, parents=None, children=None):
     self.name = name
     self.age = age
-    self.min_players = min_players
+    self.min_players = int(min_players)
     self.bonus = bonus
-    self.cost = cost or {}
-    self.parents = parents or []
-    self.children = children or []
+    self.cost = cost if isinstance(cost, dict) else {}
+    self.parents = parents if isinstance(parents, list) else []
+    self.children = children if isinstance(children, list) else []
 
   def __eq__(self, other):
     return self.__dict__ == other.__dict__

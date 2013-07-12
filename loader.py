@@ -35,9 +35,8 @@ def _parseCard(card_info, cards_list):
 
     cost = _parseCost(card_info['cost'])
 
-    # TODO
-    parents = None
-    children = None
+    parents = _getStringListOrNone(card_info, 'parents')
+    children = _getStringListOrNone(card_info, 'children')
 
     card_class = _getCardClassFromString(card_type)
 
@@ -82,7 +81,7 @@ def _parseBonus(bonus_info):
   elif bonus_type == enum.BonusType.TRADING:
     resources = _parseResources(bonus_info['resources'])
     relations = _parseRelations(bonus_info['relations'])
-    cost = int(bonus_info['cost']) if 'cost' in bonus_info else None
+    cost = _getIntOrNone(bonus_info, 'cost')
     bonus = bonus_lib.TradingBonus(resources=resources, relations=relations, cost=cost)
   elif bonus_type == enum.BonusType.CARD_COUNT:
     relations = _parseRelations(bonus_info['relations'])
@@ -102,6 +101,12 @@ def _parseBonus(bonus_info):
   else:
     raise exception.ParseError('bonus.type')
   return bonus
+
+def _getIntOrNone(dct, key):
+  return int(dct[key]) if key in dct else None
+
+def _getStringListOrNone(dct, key):
+  return [str(item) for item in dct[key]] if key in dct else None
 
 def _parseEnum(value, enum_type, field):
   if value in enum_type.values:
