@@ -27,7 +27,7 @@ def _parseCard(card_info, cards_list):
 
     name = str(card_info['name'])
     if not name:
-      raise exception.ParseError('card.type')
+      raise exception.ParseError('card.name')
 
     age = _parseEnum(card_info['age'], enum.Age, 'card.age')
 
@@ -134,6 +134,9 @@ def _parseRelations(relations):
 def _parseWonders(wonders):
   output = []
   for wonder_info in wonders:
-    # TODO
+    name = str(wonder_info['name'])
+    if not name:
+      raise exception.ParseError('wonder.name')
+
     pass
   return output
