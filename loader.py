@@ -86,17 +86,17 @@ def _parseBonus(bonus_info):
   elif bonus_type == enum.BonusType.CARD_COUNT:
     relations = _parseRelations(bonus_info['relations'])
     card_type = _getCardClassFromString(bonus_info['card_type'])
-    points_per_card = int(bonus_info['points_per_card']) if 'points_per_card' in bonus_info else None
-    coins_per_card = int(bonus_info['coins_per_card']) if 'coins_per_card' in bonus_info else None
+    points_per_card = _getIntOrNone(bonus_info, 'points_per_card')
+    coins_per_card = _getIntOrNone(bonus_info, 'coins_per_card')
     bonus = bonus_lib.CardCountBonus(relations=relations, card_type=card_type, points_per_card=points_per_card, coins_per_card=coins_per_card)
   elif bonus_type == enum.BonusType.WONDER_COUNT:
     relations = _parseRelations(bonus_info['relations'])
-    points_per_stage = int(bonus_info['points_per_stage']) if 'points_per_stage' in bonus_info else None
-    coins_per_stage = int(bonus_info['coins_per_stage']) if 'coins_per_stage' in bonus_info else None
+    points_per_stage = _getIntOrNone(bonus_info, 'points_per_stage')
+    coins_per_stage = _getIntOrNone(bonus_info, 'coins_per_stage')
     bonus = bonus_lib.WonderCountBonus(relations=relations, points_per_stage=points_per_stage, coins_per_stage=coins_per_stage)
   elif bonus_type == enum.BonusType.DEFEAT_COUNT:
     relations = _parseRelations(bonus_info['relations'])
-    points_per_defeat = int(bonus_info['points_per_defeat']) if 'points_per_defeat' in bonus_info else None
+    points_per_defeat = _getIntOrNone(bonus_info, 'points_per_defeat')
     bonus = bonus_lib.DefeatCountBonus(relations=relations, points_per_defeat=points_per_defeat)
   else:
     raise exception.ParseError('bonus.type')

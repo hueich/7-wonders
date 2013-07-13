@@ -125,3 +125,12 @@ class ParseWonderTest(unittest.TestCase):
     actual = loader._parseWonder(json)
     self.assertEqual(wonder.Wonder(name='Foo Wonder of Bar City', stages=None), actual)
 
+
+class UtilsTest(unittest.TestCase):
+  def testGetIntOrNoneHasKey(self):
+    dct = {'abc': 123}
+    self.assertEqual(123, loader._getIntOrNone(dct, 'abc'))
+
+  def testGetIntOrNoneHasNoKey(self):
+    dct = {'abc': 123}
+    self.assertIsNone(loader._getIntOrNone(dct, 'def'))
