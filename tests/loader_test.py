@@ -5,6 +5,7 @@ import bonus
 import card
 import enum
 import loader
+import wonder
 
 class LoaderTest(unittest.TestCase):
   pass
@@ -117,4 +118,10 @@ class ParseBonusTest(unittest.TestCase):
     actual = loader._parseBonus(json)
     self.assertEqual(bonus.DefeatCountBonus(relations=[enum.Relation.LEFT, enum.Relation.SELF, enum.Relation.RIGHT], points_per_defeat=4), actual)
 
+
+class ParseWonderTest(unittest.TestCase):
+  def testSimpleWonder(self):
+    json = {"name":"Foo Wonder of Bar City"}
+    actual = loader._parseWonder(json)
+    self.assertEqual(wonder.Wonder(name='Foo Wonder of Bar City', stages=None), actual)
 

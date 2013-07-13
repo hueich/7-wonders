@@ -5,7 +5,7 @@ import card as card_lib
 import constants
 import enum
 import exception
-import wonder
+import wonder as wonder_lib
 
 def loadAssets(fp):
   output = json.load(fp)
@@ -134,9 +134,15 @@ def _parseRelations(relations):
 def _parseWonders(wonders):
   output = []
   for wonder_info in wonders:
-    name = str(wonder_info['name'])
-    if not name:
-      raise exception.ParseError('wonder.name')
-
-    pass
+    output.append(_parseWonder(wonder_info))
   return output
+
+def _parseWonder(wonder_info):
+  name = str(wonder_info['name'])
+  if not name:
+    raise exception.ParseError('wonder.name')
+
+  # TODO
+
+  wonder = wonder_lib.Wonder(name=name, stages=None)
+  return wonder
