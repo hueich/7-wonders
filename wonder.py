@@ -1,15 +1,15 @@
 
 class Wonder(object):
-  def __init__(self, name, stages, resource):
+  def __init__(self, name, resource, stages):
     """
     Args:
       name: Name of the wonder.
-      stages: List of stages, in order.
       resource: The resource that the wonder provides.
+      stages: List of stages, in order.
     """
     self.name = name
-    self.stages = stages
     self.resource = resource
+    self.stages = stages
 
   def __eq__(self, other):
     return self.__dict__ == other.__dict__
@@ -30,3 +30,12 @@ class Stage(object):
     """
     self.cost = cost
     self.bonus = bonus
+
+  def __eq__(self, other):
+    return self.__dict__ == other.__dict__
+
+  def __str__(self):
+    return self.__class__.__name__ + ': ' + str(self.__dict__)
+
+  def __repr__(self):
+    return '<' + str(self) + '>'

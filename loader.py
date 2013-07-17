@@ -142,7 +142,15 @@ def _parseWonder(wonder_info):
   if not name:
     raise exception.ParseError('wonder.name')
 
-  # TODO
+  resource = _parseEnum(wonder_info['resource'], enum.Resource, 'wonder.resource')
 
-  wonder = wonder_lib.Wonder(name=name, stages=None)
+  stages = [_parseStage(stage) for stage in wonder_info['stages']]
+
+  wonder = wonder_lib.Wonder(name=name, resource=resource, stages=stages)
   return wonder
+
+def _parseStage(stage_info):
+  cost = _parseCost(stage_info['cost'])
+  bonus = _parseBonus(stage_info['bonus'])
+  stage = wonder_lib.Stage(cost=cost, bonus=bonus)
+  return stage

@@ -121,9 +121,9 @@ class ParseBonusTest(unittest.TestCase):
 
 class ParseWonderTest(unittest.TestCase):
   def testSimpleWonder(self):
-    json = {"name":"Foo Wonder of Bar City"}
+    json = {"name":"Foo Wonder of Bar City", "resource":"CLAY", "stages":[{"cost":{"CLAY":4, "GLASS":1}, "bonus":{"type":"POINT", "points":7}}]}
     actual = loader._parseWonder(json)
-    self.assertEqual(wonder.Wonder(name='Foo Wonder of Bar City', stages=None), actual)
+    self.assertEqual(wonder.Wonder(name='Foo Wonder of Bar City', resource=enum.Resource.CLAY, stages=[wonder.Stage({enum.Resource.CLAY: 4, enum.Resource.GLASS: 1}, bonus.PointBonus(7))]), actual)
 
 
 class UtilsTest(unittest.TestCase):

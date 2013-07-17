@@ -15,7 +15,7 @@ class BonusTest(unittest.TestCase):
     self.assertEqual(1, bonus.getCount(player))
 
   def testWonderCountBonusCounting(self):
-    wonder = wonder_lib.Wonder('Boo', ['1', '2', '3'], enum.Resource.GLASS)
+    wonder = wonder_lib.Wonder('Boo', enum.Resource.GLASS, ['1', '2', '3'])
     player = player_lib.Player(name='A', wonder=wonder)
     player.wonder_stage = 2
     bonus = bonus_lib.WonderCountBonus([enum.Relation.SELF], points_per_stage=3)

@@ -7,7 +7,7 @@ import wonder as wonder_lib
 
 class WonderTest(unittest.TestCase):
   def testCreateWonder(self):
-    wonder = wonder_lib.Wonder('Boogie', [], enum.Resource.PAPYRUS)
+    wonder = wonder_lib.Wonder('Boogie', enum.Resource.PAPYRUS, [])
     self.assertIsNotNone(wonder)
 
 class StageTest(unittest.TestCase):
