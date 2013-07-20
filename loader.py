@@ -108,7 +108,7 @@ def _getIntOrNone(dct, key):
 def _getStringListOrNone(dct, key):
   return [str(item) for item in dct[key]] if key in dct else None
 
-def _parseEnum(value, enum_type, field):
+def _parseEnum(value, enum_type, field=''):
   if value in enum_type.values:
     return value
   else:
