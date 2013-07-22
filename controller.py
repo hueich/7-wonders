@@ -3,6 +3,7 @@ import random
 
 import card as card_lib
 import constants
+import enum
 import loader
 import player as player_lib
 import utils
@@ -68,21 +69,37 @@ class Game(object):
     utils.updatePlayerRelations(self._players)
 
   def _setupAssets(self):
-    # Handle guild cards
+    """Setup the card decks."""
     self._selectGuildCards()
-
-    # Get valid cards 
-    
+    pruned_cards = self._pruneCardsByNumPlayers()
+    self._partitionCards(pruned_cards)
 
   def _selectGuildCards(self):
+    """Randomly select a number of guild cards base on number of players, and put them into Age III card list."""
     all_guild_cards = utils.getCardsOfType(self._all_cards, card_lib.GuildCard)
     random.shuffle(all_guild_cards)
     num_guild_cards_to_select = utils.getNumGuildCards(self.getNumPlayers())
     selected_guild_cards = all_guild_cards[:num_guild_cards_to_select]
     self._age3_cards.extend(selected_guild_cards)
 
-  def _selectCardsByNumPlayers(self):
-    pass
+  def _pruneCardsByNumPlayers(self):
+    """Prune the list of all cards according to number of players.
+
+    Returns:
+      List of cards with minimum number of players less than or equal to current number of players.
+    """
+    num_players_range = range(self.getNumPlayers() + 1)
+    return [card for card in self._all_cards if card.min_players in num_players_range]
+
+  def _partitionCardsIntoAges(self, input_cards):
+    """Partition the given list of cards into ages."""
+    for card in input_cards:
+      if card.age == enum.Age.I:
+        self._age1_cards.append(card)
+      elif card.age == enum.Age.II:
+        self._age2_cards.append(card)
+      elif card.age == enum.Age.III:
+        self._age3_cards.append(card)
 
   def _getWonder(self, name):
     for wonder in self._wonders:
