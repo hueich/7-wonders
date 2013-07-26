@@ -170,12 +170,16 @@ class UtilsTest(unittest.TestCase):
     self.assertRaises(exception.ParseError, loader._parseEnum, value, enum_type)
 
   def testParseCost(self):
-    cost_info = {'WOOD': 2, 'PAPYRUS': 1, 'COIN': 3}
-    self.assertEqual(cost_info, loader._parseCost(cost_info))
+    info = {'cost': {'WOOD': 2, 'PAPYRUS': 1, 'COIN': 3}}
+    self.assertEqual(info['cost'], loader._parseCost(info))
 
   def testParseCostInvalidKey(self):
-    cost_info = {'blah': 2}
-    self.assertRaises(exception.ParseError, loader._parseCost, cost_info)
+    info = {'cost': {'blah': 2}}
+    self.assertRaises(exception.ParseError, loader._parseCost, info)
+
+  def testParseCostNonExistent(self):
+    info = {}
+    self.assertEqual({}, loader._parseCost(info))
 
   def testParseResources(self):
     resources = ['STONE', 'CLAY']
