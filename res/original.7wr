@@ -1,5 +1,6 @@
 {"cards":[
-  {"type":"BASIC_RES", "name":"Lumber Yard", "age":"I", "min_players":[3, 4], "cost":{}, "bonus":{"type":"RESOURCE", "resources":["WOOD"]}}
+  {"type":"BASIC_RES", "name":"Lumber Yard", "age":"I", "min_players":[3, 4], "bonus":{"type":"RESOURCE", "resources":["WOOD"]}},
+  {"type":"ADV_RES", "name":"Loom", "age":"I", "min_players":[3, 6], "bonus":{"type":"RESOURCE", "resources":["TEXTILE"]}}
 ],
 "wonders":[
 
