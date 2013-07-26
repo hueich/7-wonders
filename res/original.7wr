@@ -3,5 +3,5 @@
   {"type":"ADV_RES", "name":"Loom", "age":"I", "min_players":[3, 6], "bonus":{"type":"RESOURCE", "resources":["TEXTILE"]}}
 ],
 "wonders":[
-
+  {"name":"The Colossus of Rhodes", "resource":"ORE", "stages":[{"cost":{"WOOD":2}, "bonus":{"type":"POINT", "points":3}}, {"cost":{"CLAY":3}, "bonus":{"type":"MILITARY", "shields":2}}, {"cost":{"ORE":4}, "bonus":{"type":"POINT", "points":7}}]}
 ]}

@@ -3,13 +3,20 @@ import unittest
 
 import bonus
 import card
+import constants
 import enum
 import exception
 import loader
 import wonder
 
 class LoaderTest(unittest.TestCase):
-  pass
+  def testLoadOriginalAssets(self):
+    with open('res/original.7wr') as fp:
+      assets = loader.loadAssets(fp)
+    self.assertIn(constants.CARDS_KEY, assets)
+    self.assertGreater(len(assets[constants.CARDS_KEY]), 0)
+    self.assertIn(constants.WONDERS_KEY, assets)
+    self.assertGreater(len(assets[constants.WONDERS_KEY]), 0)
 
 class ParseCardTest(unittest.TestCase):
   def testBasicResourceCard(self):
