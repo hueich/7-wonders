@@ -143,6 +143,12 @@ class ParseBonusTest(unittest.TestCase):
     actual = loader._parseBonus(json)
     self.assertEqual(expect, actual)
 
+  def testParseCoins(self):
+    json = {"type":"COIN", "coins":3}
+    expect = bonus.CoinBonus(coins=3)
+    actual = loader._parseBonus(json)
+    self.assertEqual(expect, actual)
+
 
 class ParseWonderTest(unittest.TestCase):
   def testSimpleWonder(self):

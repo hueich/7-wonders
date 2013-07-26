@@ -32,6 +32,14 @@ class ResourceBonus(BaseBonus):
     self.resources = resources
     self.tradable = True if tradable is None else tradable
 
+class CoinBonus(BaseBonus):
+  def __init__(self, coins):
+    """
+    Args:
+      coins: Number of coins this bonus provides.
+    """
+    self.coins = coins
+
 class ScienceBonus(BaseBonus):
   def __init__(self, science):
     """
