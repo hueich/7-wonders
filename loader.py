@@ -33,7 +33,7 @@ def _parseCard(card_info, cards_list):
 
     bonus = _parseBonus(card_info['bonus'])
 
-    cost = _parseCost(card_info['cost'])
+    cost = _parseCost(card_info)
 
     parents = _getStringListOrNone(card_info, 'parents')
     children = _getStringListOrNone(card_info, 'children')
@@ -114,8 +114,9 @@ def _parseEnum(value, enum_type, field=''):
   else:
     raise exception.ParseError(field)
 
-def _parseCost(cost_info):
+def _parseCost(info):
   cost = {}
+  cost_info = info['cost'] if 'cost' in info else {}
   for res in cost_info:
     if res in enum.Resource.values:
       cost[res] = int(cost_info[res])
@@ -150,7 +151,7 @@ def _parseWonder(wonder_info):
   return wonder
 
 def _parseStage(stage_info):
-  cost = _parseCost(stage_info['cost'])
+  cost = _parseCost(stage_info)
   bonus = _parseBonus(stage_info['bonus'])
   stage = wonder_lib.Stage(cost=cost, bonus=bonus)
   return stage
