@@ -59,6 +59,7 @@ CardType = enum(
 BonusType = enum(
   'POINT',
   'RESOURCE',
+  'COIN',
   'SCIENCE',
   'MILITARY',
   'TRADING',

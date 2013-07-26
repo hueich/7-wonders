@@ -72,6 +72,9 @@ def _parseBonus(bonus_info):
   elif bonus_type == enum.BonusType.RESOURCE:
     resources = _parseResources(bonus_info['resources'])
     bonus = bonus_lib.ResourceBonus(resources)
+  elif bonus_type == enum.BonusType.COIN:
+    coins = int(bonus_info['coins'])
+    bonus = bonus_lib.CoinBonus(coins)
   elif bonus_type == enum.BonusType.SCIENCE:
     science = _parseEnum(bonus_info['science'], enum.Science, 'bonus.science')
     bonus = bonus_lib.ScienceBonus(science)
