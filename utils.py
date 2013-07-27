@@ -5,6 +5,9 @@ import exception
 def getCardsOfType(cards, card_type):
   return [c for c in cards if isinstance(c, card_type)]
 
+def getCardsOfAge(cards, age):
+  return [c for c in cards if c.age == age]
+
 def countAssets(player, relations, asset_filter):
   count = 0
   for rel in relations:

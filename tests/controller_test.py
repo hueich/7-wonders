@@ -28,7 +28,7 @@ class GameTest(unittest.TestCase):
     self.game._players = range(num_players)
 
     self.game._selectGuildCards()
-    guild_cards = self.game._age3_cards
+    guild_cards = self.game._guild_cards
 
     self.assertEqual(expected_num_cards, len(guild_cards))
     for c in guild_cards:
@@ -45,24 +45,25 @@ class GameTest(unittest.TestCase):
 
     self.assertEqual(all_cards[:2], pruned_cards)
 
-  def testPartitionCards(self):
-    input_cards = [
-      card_lib.BasicResourceCard('Card_1', enum.Age.I, 3, None),
-      card_lib.BasicResourceCard('Card_2', enum.Age.II, 3, None),
-      card_lib.BasicResourceCard('Card_3', enum.Age.III, 3, None)
-    ]
+  # def testPartitionCards(self):
+  #   input_cards = [
+  #     card_lib.BasicResourceCard('Card_1', enum.Age.I, 3, None),
+  #     card_lib.BasicResourceCard('Card_2', enum.Age.II, 3, None),
+  #     card_lib.BasicResourceCard('Card_3', enum.Age.III, 3, None)
+  #   ]
 
-    self.game._partitionCardsIntoAges(input_cards)
+  #   self.game._partitionCardsIntoAges(input_cards)
 
-    self.assertEqual(input_cards[:1], self.game._age1_cards)
-    self.assertEqual(input_cards[1:2], self.game._age2_cards)
-    self.assertEqual(input_cards[2:], self.game._age3_cards)
+  #   self.assertEqual(input_cards[:1], self.game._age1_cards)
+  #   self.assertEqual(input_cards[1:2], self.game._age2_cards)
+  #   self.assertEqual(input_cards[2:], self.game._age3_cards)
 
   def testShuffleAndDeal(self):
     num_cards = 15
     num_stacks = 3
+    stack_size = num_cards / num_stacks
     cards = range(num_cards)
     stacks = self.game._shuffleAndDeal(cards, num_stacks)
     self.assertEqual(num_stacks, len(stacks))
     for stack in stacks:
-      self.assertEqual(num_cards / num_stacks, len(stack))
+      self.assertEqual(stack_size, len(stack))

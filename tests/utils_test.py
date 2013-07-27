@@ -9,13 +9,17 @@ class UtilsTest(unittest.TestCase):
   def testGetCardsOfType(self):
     input_cards = self._makeTestCards()
     output_cards = utils.getCardsOfType(input_cards, card.CivilCard)
-    self.assertEqual(1, len(output_cards))
-    self.assertEqual(output_cards[0], input_cards[1])
+    self.assertEqual(output_cards, input_cards[1:2])
 
   def testGetCardsOfTypeNoMatch(self):
     input_cards = self._makeTestCards()
     output_cards = utils.getCardsOfType(input_cards, card.ScienceCard)
     self.assertEqual([], output_cards)
+
+  def testGetCardsOfAge(self):
+    input_cards = self._makeTestCards()
+    output_cards = utils.getCardsOfAge(input_cards, enum.Age.III)
+    self.assertEqual(output_cards, input_cards[2:3])
 
   def _makeTestCards(self):
     return [
