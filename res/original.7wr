@@ -2,7 +2,10 @@
   {"type":"BASIC_RES", "name":"Lumber Yard", "age":"I", "min_players":[3,4], "bonus":{"type":"RESOURCE", "resources":["WOOD"]}},
   {"type":"ADV_RES", "name":"Loom", "age":"I", "min_players":[3,6], "bonus":{"type":"RESOURCE", "resources":["TEXTILE"]}},
   {"type":"CIVIL", "name":"Pawnshop", "age":"I", "min_players":[4,7], "bonus":{"type":"POINT", "points":3}},
-  {"type":"COMMERCE", "name":"Tavern", "age":"I", "min_players":[4,5,7], "bonus":{"type":"COIN", "coins":5}}
+  {"type":"COMMERCE", "name":"Tavern", "age":"I", "min_players":[4,5,7], "bonus":{"type":"COIN", "coins":5}},
+  {"type":"MILITARY", "name":"Stockade", "age":"I", "min_players":[3.7], "cost":{"WOOD":1}, "bonus":{"type":"MILITARY", "shields":1}},
+  {"type":"SCIENCE", "name":"Apothecary", "age":"I", "min_players":[3,5], "cost":{"TEXTILE":1}, "bonus":{"type":"SCIENCE", "science":"COMPASS"}},
+  {"type":"GUILD", "name":"Workers Guild", "age":"III", "cost":{"ORE":2, "CLAY":1, "STONE":1, "WOOD":1}, "bonus":{"type":"CARD_COUNT", "relations":["LEFT", "RIGHT"], "card_type":"BASIC_RES", "points_per_card":1}}
 ],
 "wonders":[
   {"name":"The Colossus of Rhodes", "resource":"ORE", "stages":[{"cost":{"WOOD":2}, "bonus":{"type":"POINT", "points":3}}, {"cost":{"CLAY":3}, "bonus":{"type":"MILITARY", "shields":2}}, {"cost":{"ORE":4}, "bonus":{"type":"POINT", "points":7}}]}
