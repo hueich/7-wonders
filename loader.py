@@ -22,7 +22,7 @@ def _parseCards(cards):
   return output
 
 def _parseCard(card_info, cards_list):
-  for min_players in [int(c) for c in card_info['min_players']]:
+  for min_players in _getMinPlayersList(card_info):
     card_type = _parseEnum(card_info['type'], enum.CardType, 'card.type')
 
     name = str(card_info['name'])
@@ -42,6 +42,16 @@ def _parseCard(card_info, cards_list):
 
     card = card_class(name, age, min_players, bonus, cost, parents, children)
     cards_list.append(card)
+
+def _getMinPlayersList(card_info):
+  if 'min_players' not in card_info:
+    return [-1]
+  min_players = card_info['min_players']
+  if isinstance(min_players, list):
+    return [int(p) for p in min_players]
+  elif isinstance(min_players, int):
+    return [min_players]
+  raise exception.ParseError('card.min_players')
 
 def _getCardClassFromString(card_type):
   card_class = None

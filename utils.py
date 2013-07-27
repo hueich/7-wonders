@@ -34,4 +34,7 @@ def updatePlayerRelations(players):
   players[0].right = players[-1]
   players[-1].left = players[0]
 
+def getNumGuildCards(num_players):
+  """Get the number of guild cards to use given the number of players."""
+  return num_players + 2
 
