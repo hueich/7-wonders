@@ -203,3 +203,23 @@ class UtilsTest(unittest.TestCase):
     resources = ['ORE', ['GLASS', 'TEXTILE', 'PAPYRUS']]
     expect = ['ORE', ('GLASS', 'TEXTILE', 'PAPYRUS')]
     self.assertEqual(expect, loader._parseResources(resources))
+
+  def testGetMinPlayersListNotExist(self):
+    card_info = {}
+    actual = loader._getMinPlayersList(card_info)
+    self.assertEqual([-1], actual)
+
+  def testGetMinPlayersListOneElementList(self):
+    card_info = {'min_players': [3]}
+    actual = loader._getMinPlayersList(card_info)
+    self.assertEqual([3], actual)
+
+  def testGetMinPlayersListMultiElementList(self):
+    card_info = {'min_players': [2, 4, 6]}
+    actual = loader._getMinPlayersList(card_info)
+    self.assertEqual([2, 4, 6], actual)
+
+  def testGetMinPlayersListInt(self):
+    card_info = {'min_players': 5}
+    actual = loader._getMinPlayersList(card_info)
+    self.assertEqual([5], actual)

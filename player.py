@@ -3,20 +3,20 @@ import constants
 import exception
 
 class Player(object):
-  def __init__(self, name, wonder=None, left=None, right=None, coins=constants.PLAYER_STARTING_COINS):
+  def __init__(self, name, wonder=None, left=None, right=None, starting_coins=constants.PLAYER_STARTING_COINS):
     """
     Args:
       name: String for the name of the player.
       left: Reference to the player to the left of current player.
       right: Reference to the player to the right of current player.
       wonder: Reference to this player's wonder.
-      coins: Starting number of coins.
+      starting_coins: Starting number of coins.
     """
     self.name = name
     self.left = left
     self.right = right
     self.wonder = wonder
-    self.coins = coins
+    self.coins = starting_coins
     self.wins = 0
     self.losses = 0
     self.wonder_stage = 0
