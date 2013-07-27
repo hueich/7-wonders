@@ -57,3 +57,12 @@ class GameTest(unittest.TestCase):
     self.assertEqual(input_cards[:1], self.game._age1_cards)
     self.assertEqual(input_cards[1:2], self.game._age2_cards)
     self.assertEqual(input_cards[2:], self.game._age3_cards)
+
+  def testShuffleAndDeal(self):
+    num_cards = 15
+    num_stacks = 3
+    cards = range(num_cards)
+    stacks = self.game._shuffleAndDeal(cards, num_stacks)
+    self.assertEqual(num_stacks, len(stacks))
+    for stack in stacks:
+      self.assertEqual(num_cards / num_stacks, len(stack))

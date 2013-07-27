@@ -107,6 +107,17 @@ class Game(object):
         return wonder
     return None
 
+  def beginAge1(self):
+    pass
+
+  def _shuffleAndDeal(self, cards, num_stacks):
+    stack_size = int(len(cards) / num_stacks)
+    random.shuffle(cards)
+    stacks = []
+    for i in xrange(num_stacks):
+      stacks.append(cards[i*stack_size:(i+1)*stack_size])
+    return stacks
+
   def getNumPlayers(self):
     return len(self._players)
 
