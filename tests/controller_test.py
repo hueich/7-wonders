@@ -1,10 +1,13 @@
 
+import itertools
 import mox
 import unittest
 
 import card as card_lib
+import constants
 import controller
 import enum
+import utils
 
 class GameTest(unittest.TestCase):
   def setUp(self):
@@ -67,3 +70,17 @@ class GameTest(unittest.TestCase):
     self.assertEqual(num_stacks, len(stacks))
     for stack in stacks:
       self.assertEqual(stack_size, len(stack))
+
+  def testResolveMilitaryConflicts(self):
+    age = enum.Age.II
+    win_pts = constants.MILITARY_WIN_POINTS_BY_AGE[age]
+    players = range(5)
+    self.game._current_age = age
+    self.game._players = players
+    self.mox.StubOutWithMock(utils, 'resolveCombat')
+    for p1, p2 in itertools.combinations(self.game._players, 2):
+      utils.resolveCombat(p1, p2, win_pts)
+
+    self.mox.ReplayAll()
+    self.game.resolveMilitaryConflicts()
+    self.mox.VerifyAll()

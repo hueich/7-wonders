@@ -41,3 +41,16 @@ def getNumGuildCards(num_players):
   """Get the number of guild cards to use given the number of players."""
   return num_players + 2
 
+def getNumShields(player):
+  # TODO
+  return 0
+
+def resolveCombat(player1, player2, win_points):
+  p1_shields = getNumShields(player1)
+  p2_shields = getNumShields(player2)
+  if p1_shields > p2_shields:
+    player1.wins += win_points
+    player2.losses += 1
+  elif p1_shields < p2_shields:
+    player1.losses += 1
+    player2.wins += win_points

@@ -1,4 +1,5 @@
 
+import itertools
 import random
 
 import card as card_lib
@@ -81,7 +82,7 @@ class Game(object):
     # self._partitionCards(pruned_cards)
 
   def _selectGuildCards(self):
-    """Randomly select a number of guild cards base on number of players, and put them into Age III card list."""
+    """Randomly select a number of guild cards based on number of players, and put them into guild cards list."""
     all_guild_cards = utils.getCardsOfType(self._all_cards, card_lib.GuildCard)
     random.shuffle(all_guild_cards)
     num_guild_cards_to_select = utils.getNumGuildCards(self.getNumPlayers())
@@ -122,7 +123,7 @@ class Game(object):
         cards.extend(self._guild_cards)
       stacks = self._shuffleAndDeal(cards, self.getNumPlayers())
       for stack, player in zip(stacks, self.players):
-        player.hand = stack
+        player.setHand(stack)
       self._start_of_age = False
       self._current_round = 1
       self._max_round = len(stacks[0]) - 1
@@ -137,6 +138,7 @@ class Game(object):
       # TODO: Handle card resurrection ability.
 
       # Combat resolution.
+      self.resolveMilitaryConflicts()
 
       # Set next age.
       self._current_age = self._getNextAge(self._current_age)
@@ -145,7 +147,7 @@ class Game(object):
         pass
 
   def _isEndOfAge(self):
-    return self._current_round == self._max_round
+    return self._current_round >= self._max_round
 
   def _getNextAge(self, current_age):
     if current_age == enum.Age.I:
@@ -169,9 +171,10 @@ class Game(object):
   def getNumPlayers(self):
     return len(self._players)
 
-  def doCombat(self):
-    pass
-
+  def resolveMilitaryConflicts(self):
+    win_pts = constants.MILITARY_WIN_POINTS_BY_AGE[self._current_age]
+    for p1, p2 in itertools.combinations(self._players, 2):
+      utils.resolveCombat(p1, p2, win_pts)
 
 class Launcher(object):
   def __init__(self, asset_file=None):

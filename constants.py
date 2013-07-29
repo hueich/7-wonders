@@ -1,4 +1,6 @@
 
+import enum
+
 PLAYER_STARTING_COINS = 3
 """Number of coins a player starts with."""
 
@@ -14,3 +16,9 @@ COMMERCE_TRADING_RATE = 1
 # Dict keys
 CARDS_KEY = 'cards'
 WONDERS_KEY = 'wonders'
+
+MILITARY_WIN_POINTS_BY_AGE = {
+  enum.Age.I: 1,
+  enum.Age.II: 3,
+  enum.Age.III: 5
+}

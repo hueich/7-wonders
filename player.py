@@ -7,9 +7,9 @@ class Player(object):
     """
     Args:
       name: String for the name of the player.
+      wonder: Reference to this player's wonder.
       left: Reference to the player to the left of current player.
       right: Reference to the player to the right of current player.
-      wonder: Reference to this player's wonder.
       starting_coins: Starting number of coins.
     """
     self.name = name
