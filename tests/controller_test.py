@@ -48,19 +48,6 @@ class GameTest(unittest.TestCase):
 
     self.assertEqual(all_cards[:2], pruned_cards)
 
-  # def testPartitionCards(self):
-  #   input_cards = [
-  #     card_lib.BasicResourceCard('Card_1', enum.Age.I, 3, None),
-  #     card_lib.BasicResourceCard('Card_2', enum.Age.II, 3, None),
-  #     card_lib.BasicResourceCard('Card_3', enum.Age.III, 3, None)
-  #   ]
-
-  #   self.game._partitionCardsIntoAges(input_cards)
-
-  #   self.assertEqual(input_cards[:1], self.game._age1_cards)
-  #   self.assertEqual(input_cards[1:2], self.game._age2_cards)
-  #   self.assertEqual(input_cards[2:], self.game._age3_cards)
-
   def testShuffleAndDeal(self):
     num_cards = 15
     num_stacks = 3

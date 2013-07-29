@@ -22,9 +22,6 @@ class Game(object):
     self._all_cards = []
     self._eligible_cards = []
     self._guild_cards = []
-    # self._age1_cards = []
-    # self._age2_cards = []
-    # self._age3_cards = []
     self._discarded_cards = []
     self._current_age = enum.Age.I
     self._start_of_age = True
@@ -97,16 +94,6 @@ class Game(object):
     """
     num_players_range = range(self.getNumPlayers() + 1)
     return [card for card in self._all_cards if card.min_players in num_players_range]
-
-  # def _partitionCardsIntoAges(self, input_cards):
-  #   """Partition the given list of cards into ages."""
-  #   for card in input_cards:
-  #     if card.age == enum.Age.I:
-  #       self._age1_cards.append(card)
-  #     elif card.age == enum.Age.II:
-  #       self._age2_cards.append(card)
-  #     elif card.age == enum.Age.III:
-  #       self._age3_cards.append(card)
 
   def _getWonder(self, name):
     for wonder in self._wonders:
