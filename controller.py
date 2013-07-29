@@ -24,8 +24,7 @@ class Game(object):
     self._guild_cards = []
     self._discarded_cards = []
     self._current_age = enum.Age.I
-    self._start_of_age = True
-    self._current_round = 0
+    self._resetRoundCount()
     self._max_round = None
 
   def addPlayer(self, name):
@@ -76,7 +75,6 @@ class Game(object):
     """Setup the card decks."""
     self._selectGuildCards()
     self._eligible_cards.extend(self._pruneCardsByNumPlayers())
-    # self._partitionCards(pruned_cards)
 
   def _selectGuildCards(self):
     """Randomly select a number of guild cards based on number of players, and put them into guild cards list."""
@@ -102,18 +100,16 @@ class Game(object):
     return None
 
   def beginRound(self):
-    self._current_round += 1
-
-    if self._start_of_age:
+    if self._isStartOfAge():
       cards = utils.getCardsOfAge(self._eligible_cards, self._current_age)
       if self._current_age == enum.Age.III:
         cards.extend(self._guild_cards)
-      stacks = self._shuffleAndDeal(cards, self.getNumPlayers())
+      stacks = utils.shuffleAndDeal(cards, self.getNumPlayers())
       for stack, player in zip(stacks, self.players):
         player.setHand(stack)
-      self._start_of_age = False
-      self._current_round = 1
       self._max_round = len(stacks[0]) - 1
+
+    self._current_round += 1
 
   def processRound(self):
     for player in self.players:
@@ -128,29 +124,21 @@ class Game(object):
       self.resolveMilitaryConflicts()
 
       # Set next age.
-      self._current_age = self._getNextAge(self._current_age)
+      self._current_age = utils.getNextAge(self._current_age)
       if not self._current_age:
         # TODO: End of the game, do scoring or something.
         pass
 
+      self._resetRoundCount()
+
+  def _resetRoundCount(self):
+    self._current_round = 0
+
+  def _isStartOfAge(self):
+    return not self._current_round
+
   def _isEndOfAge(self):
     return self._current_round >= self._max_round
-
-  def _getNextAge(self, current_age):
-    if current_age == enum.Age.I:
-      return enum.Age.II
-    elif current_age == enum.Age.II:
-      return enum.Age.III
-    else:
-      return None
-
-  def _shuffleAndDeal(self, cards, num_stacks):
-    stack_size = int(len(cards) / num_stacks)
-    random.shuffle(cards)
-    stacks = []
-    for i in xrange(num_stacks):
-      stacks.append(cards[i*stack_size:(i+1)*stack_size])
-    return stacks
 
   def _applyAction(self, player):
     pass

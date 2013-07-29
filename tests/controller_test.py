@@ -48,16 +48,6 @@ class GameTest(unittest.TestCase):
 
     self.assertEqual(all_cards[:2], pruned_cards)
 
-  def testShuffleAndDeal(self):
-    num_cards = 15
-    num_stacks = 3
-    stack_size = num_cards / num_stacks
-    cards = range(num_cards)
-    stacks = self.game._shuffleAndDeal(cards, num_stacks)
-    self.assertEqual(num_stacks, len(stacks))
-    for stack in stacks:
-      self.assertEqual(stack_size, len(stack))
-
   def testResolveMilitaryConflicts(self):
     age = enum.Age.II
     win_pts = constants.MILITARY_WIN_POINTS_BY_AGE[age]

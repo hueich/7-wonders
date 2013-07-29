@@ -1,3 +1,4 @@
+import random
 
 import enum
 import exception
@@ -54,3 +55,19 @@ def resolveCombat(player1, player2, win_points):
   elif p1_shields < p2_shields:
     player1.losses += 1
     player2.wins += win_points
+
+def shuffleAndDeal(cards, num_stacks):
+  stack_size = int(len(cards) / num_stacks)
+  random.shuffle(cards)
+  stacks = []
+  for i in xrange(num_stacks):
+    stacks.append(cards[i*stack_size:(i+1)*stack_size])
+  return stacks
+
+def getNextAge(current_age):
+  if current_age == enum.Age.I:
+    return enum.Age.II
+  elif current_age == enum.Age.II:
+    return enum.Age.III
+  else:
+    return None

@@ -36,6 +36,16 @@ class UtilsTest(unittest.TestCase):
       card.MilitaryCard('C', enum.Age.III, 4, 2)
     ]
 
+def testShuffleAndDeal(self):
+  num_cards = 15
+  num_stacks = 3
+  stack_size = num_cards / num_stacks
+  cards = range(num_cards)
+  stacks = shuffleAndDeal(cards, num_stacks)
+  self.assertEqual(num_stacks, len(stacks))
+  for stack in stacks:
+    self.assertEqual(stack_size, len(stack))
+
   def testResolveCombatP1Win(self):
     win_pts = 4
     p1_shields = 3
