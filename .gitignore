@@ -42,3 +42,9 @@ misc/
 # Virtual Environment
 venv/
 
+# Secret Stuff
+secret_settings.py
+
+# Test Databases
+db.sqlite3
+
