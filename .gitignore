@@ -38,3 +38,7 @@ nosetests.xml
 
 # Misc
 misc/
+
+# Virtual Environment
+venv/
+
