@@ -1,5 +1,5 @@
 """
-Django settings for wonders project.
+Django settings for wondersite project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEST_KEY = '%zyg6svq7fk%&xh)3&fuyz1uambwz-tpkv9i&w$_rj6ncki%x8'
 
 try:
-    from wonders import secret_settings
+    from wondersite import secret_settings
     print('Using secret key!')
     SECRET_KEY = secret_settings.SECRET_KEY
 except ImportError:
@@ -56,9 +56,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'wonders.urls'
+ROOT_URLCONF = 'wondersite.urls'
 
-WSGI_APPLICATION = 'wonders.wsgi.application'
+WSGI_APPLICATION = 'wondersite.wsgi.application'
 
 
 # Database
