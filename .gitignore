@@ -42,3 +42,6 @@ misc/
 # Virtual Environment
 venv/
 
+# Secret Stuff
+secret_settings.py
+
