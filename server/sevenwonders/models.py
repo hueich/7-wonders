@@ -15,9 +15,10 @@ class Game(models.Model):
       (FINISHED, 'Finished'),
     )
 
-  players = models.ManyToManyField(User, through='Player')
-  creator = models.ForeignKey('Player')
   creation_timestamp = models.DateTimeField(auto_now_add=True)
+  creator = models.ForeignKey('Player')
+  players = models.ManyToManyField(User, through='Player')
+  cards = models.ManyToManyField('Card', through='GameCard')
 
   name = models.CharField(max_length=100)
   status = models.CharField(max_length=2, choices=Status.choices, default=Status.CREATED)
@@ -53,7 +54,19 @@ class Card(models.Model):
 
 
 class GameCard(models.Model):
-  pass
+
+  class Status(object):
+    NONE = 'N'
+    HAND = 'H'
+    DISCARD = 'D'
+    BUILD = 'B'
+    WONDER = 'W'
+
+  game = models.ForeignKey(Game)
+  card = models.ForeignKey(Card)
+  starting_player = models.ForeignKey(Player)
+  current_player = models.ForeignKey(Player)
+  status = models.CharField(max_length=1, choices=Status.choices, default=Status.NONE)
 
 
 class Move(models.Model):
