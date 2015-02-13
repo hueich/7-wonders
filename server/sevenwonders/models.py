@@ -46,3 +46,15 @@ class Player(models.Model):
 
 class Wonder(models.Model):
   name = models.CharField(max_length=100)
+
+
+class Card(models.Model):
+  pass
+
+
+class GameCard(models.Model):
+  pass
+
+
+class Move(models.Model):
+  pass
